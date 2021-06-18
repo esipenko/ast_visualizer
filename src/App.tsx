@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import Editor from "./editor/Editor";
-import AST from "./Tree/AST";
-import {parse, Node} from "acorn";
-
+import { parse, Node } from 'acorn';
+import Editor from './editor/Editor';
+import AST from './Tree/AST';
 
 export interface ExtendedNode extends Node {
     body: ExtendedNode[];
@@ -13,28 +12,27 @@ export interface ExtendedNode extends Node {
     properties?: ExtendedNode[];
 }
 
-
 function App() {
   const [source, setSource] = useState<ExtendedNode | null>(null);
 
   const updateSource = (code: string) => {
-      let result: ExtendedNode | null = null;
+    let result: ExtendedNode | null = null;
 
-      try {
-          // Types for acorn not implement many their features
-          (result as any) = parse(code);
-      } catch (e) {
-          console.log(e);
-      }
+    try {
+      // Types for acorn not implement many their features
+      (result as any) = parse(code);
+    } catch (e) {
+      console.log(e);
+    }
 
-      setSource(result);
-  }
+    setSource(result);
+  };
 
   return (
-      <div className="App">
-          <Editor setSource={updateSource}/>
-          <AST sourceCode={source} />
-      </div>
+    <div className="App">
+      <Editor setSource={updateSource} />
+      <AST sourceCode={source} />
+    </div>
   );
 }
 
