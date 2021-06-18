@@ -1,11 +1,14 @@
 import React from 'react';
+import {Node} from "acorn";
+
 interface ASTProps {
-    sourceCode: string;
+    sourceCode: Node | null;
 }
-function AST(props:ASTProps) {
+
+function AST(props: ASTProps) {
     return (
         <span>
-            {props.sourceCode}
+            {JSON.stringify(props.sourceCode)}
         </span>
     );
 }
