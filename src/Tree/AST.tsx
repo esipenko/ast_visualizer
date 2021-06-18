@@ -1,15 +1,16 @@
 import React from 'react';
-import {Node} from "acorn";
+import TreeNode from "./tree-node/TreeNode";
+import {ExtendedNode} from "../App";
 
 interface ASTProps {
-    sourceCode: Node | null;
+    sourceCode: ExtendedNode | null;
 }
 
-function AST(props: ASTProps) {
+
+function AST({sourceCode}: ASTProps) {
+    console.log(sourceCode);
     return (
-        <span>
-            {JSON.stringify(props.sourceCode)}
-        </span>
+        <TreeNode nodes={sourceCode === null ? [] : [sourceCode]} />
     );
 }
 

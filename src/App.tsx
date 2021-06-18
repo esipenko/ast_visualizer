@@ -4,14 +4,25 @@ import Editor from "./editor/Editor";
 import AST from "./Tree/AST";
 import {parse, Node} from "acorn";
 
+
+export interface ExtendedNode extends Node {
+    body: ExtendedNode[];
+    declarations?: ExtendedNode[];
+    elements?: ExtendedNode[];
+    init?: ExtendedNode[];
+    properties?: ExtendedNode[];
+}
+
+
 function App() {
-  const [source, setSource] = useState<Node | null>(null);
+  const [source, setSource] = useState<ExtendedNode | null>(null);
 
   const updateSource = (code: string) => {
-      let result: Node | null = null;
+      let result: ExtendedNode | null = null;
 
       try {
-          result = parse(code);
+          // Types for acorn not implement many their features
+          (result as any) = parse(code);
       } catch (e) {
           console.log(e);
       }
