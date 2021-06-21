@@ -4,6 +4,10 @@ import { ExtendedNode } from '../../App';
 interface ITreeNode {
     nodes: ExtendedNode[];
 }
+
+const getLists(node: ExtendedNode) {
+  const res: any = [];
+}
 const getOptions = (node: ExtendedNode) => {
   if (node.body !== undefined) {
     return node.body;
@@ -18,7 +22,11 @@ const getOptions = (node: ExtendedNode) => {
   return [];
 };
 
+
+
 const getSubNodes = (nodes: ExtendedNode[]) => {
+  console.log(nodes);
+
   if (nodes.length > 0) {
     return nodes.map((node) => ({ type: node.type, options: getOptions(node) }));
   }
@@ -28,14 +36,14 @@ const getSubNodes = (nodes: ExtendedNode[]) => {
 
 function TreeNode({ nodes }: ITreeNode) {
   return (
-    <div>
+    <ul>
       {getSubNodes(nodes).map((node) => (
-        <div>
+        <li>
           <span>{node.type}</span>
           <TreeNode nodes={node.options} />
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
