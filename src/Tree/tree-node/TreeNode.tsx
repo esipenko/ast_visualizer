@@ -1,48 +1,44 @@
 import React from 'react';
-import { ExtendedNode } from '../../App';
 
-interface ITreeNode {
-    nodes: ExtendedNode[];
-}
+const getSubNodes = (node: any) => {
+  const keys = Object.keys(node);
 
-const getLists(node: ExtendedNode) {
-  const res: any = [];
-}
-const getOptions = (node: ExtendedNode) => {
-  if (node.body !== undefined) {
-    return node.body;
-  } if (node.declarations !== undefined) {
-    return node.declarations;
-  } if (node.init !== undefined) {
-    return node.init;
-  } if (node.properties !== undefined) {
-    return node.properties;
-  }
+  return keys.map((key) => {
+    const curProp = node[key];
 
-  return [];
+    if (Array.isArray(curProp)) {
+      return (
+        <ul>
+          <h3>{key}</h3>
+          :
+          {' '}
+          {curProp.map((el) => <li>{getSubNodes(el)}</li>)}
+        </ul>
+      );
+    } if (typeof curProp === 'object' && curProp !== null) {
+      return (
+        <ul>
+          <h5>{key}</h5>
+          :
+          {' '}
+          <li>{getSubNodes(curProp)}</li>
+        </ul>
+      );
+    }
+    return (
+      <li>
+        <h6>{key}</h6>
+        :
+        {curProp}
+      </li>
+    );
+  });
 };
 
-
-
-const getSubNodes = (nodes: ExtendedNode[]) => {
-  console.log(nodes);
-
-  if (nodes.length > 0) {
-    return nodes.map((node) => ({ type: node.type, options: getOptions(node) }));
-  }
-
-  return [];
-};
-
-function TreeNode({ nodes }: ITreeNode) {
+function TreeNode({ nodes }: any) {
   return (
     <ul>
-      {getSubNodes(nodes).map((node) => (
-        <li>
-          <span>{node.type}</span>
-          <TreeNode nodes={node.options} />
-        </li>
-      ))}
+      {getSubNodes(nodes).map((el) => el)}
     </ul>
   );
 }

@@ -7,7 +7,6 @@ interface ASTProps {
 }
 
 function AST({ sourceCode }: ASTProps) {
-  console.log(sourceCode);
   return (
     <TreeNode nodes={sourceCode === null ? [] : [sourceCode]} />
   );
