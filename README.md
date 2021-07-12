@@ -1,3 +1,6 @@
+# AST Visualizer
+
+This is my pet project where i am trying to lear some react basics. Actually there are a lot of different ast visualizers, but since i've spent a lot of time recently exploring javascript ASTs, i've decided that it would be an interesting challenge for me.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
